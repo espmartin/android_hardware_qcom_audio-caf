@@ -65,7 +65,6 @@ using android::Mutex;
 #define RX_IIR_ENABLE   0x0004
 #define RX_IIR_DISABLE  0x0000
 
-#ifdef HTC_AUDIO
 #define MOD_PLAY 1
 #define MOD_REC  2
 #define MOD_TX   3
@@ -83,7 +82,6 @@ using android::Mutex;
 #define ACDB_ID_INT_MIC_VR                509
 #define ACDB_ID_SPKR_PLAYBACK             607
 #define ACDB_ID_ALT_SPKR_PLAYBACK         608
-#endif
 
 struct eq_filter_type {
     int16_t gain;
@@ -216,13 +214,11 @@ typedef struct {
 } amrsup_frame_order_type;
 #endif
 
-#ifdef HTC_AUDIO
 struct msm_bt_endpoint {
     int tx;
     int rx;
     char name[64];
 };
-#endif
 
 enum tty_modes {
     TTY_OFF = 0,
@@ -373,9 +369,7 @@ protected:
 
 private:
 
-#ifdef HTC_AUDIO
     status_t    doAudioRouteOrMuteHTC(uint32_t device);
-#endif
     status_t    doAudioRouteOrMute(uint32_t device);
     status_t    setMicMute_nosync(bool state);
     status_t    checkMicMute();
@@ -390,7 +384,6 @@ private:
 #ifdef QCOM_FM_ENABLED
     status_t    disableFM();
 #endif
-#ifdef HTC_AUDIO
     status_t    get_mMode();
     status_t    set_mRecordState(bool onoff);
     status_t    get_mRecordState();
@@ -402,7 +395,6 @@ private:
     int         aic3254_ioctl(int cmd, const int argc);
     void        aic3254_powerdown();
     int         aic3254_set_volume(int volume);
-#endif
     AudioStreamInMSM72xx*   getActiveInput_l();
 #ifdef WITH_QCOM_VOIP_OVER_MVS
     AudioStreamInVoip* getActiveVoipInput_l();
@@ -619,20 +611,18 @@ private:
             bool        mBluetoothNrec;
             bool        mBluetoothVGS;
             uint32_t    mBluetoothId;
-            float       mVoiceVolume;
-#ifdef HTC_AUDIO
             bool        mHACSetting;
             uint32_t    mBluetoothIdTx;
             uint32_t    mBluetoothIdRx;
             msm_bt_endpoint *mBTEndpoints;
             int         mNumBTEndpoints;
+            float       mVoiceVolume;
             int         mNoiseSuppressionState;
             bool        mRecordState;
             char        mCurDspProfile[22];
             bool        mEffectEnabled;
             char        mActiveAP[10];
             char        mEffect[10];
-#endif
             AudioStreamOutMSM72xx*  mOutput;
             SortedVector <AudioStreamInMSM72xx*>   mInputs;
 #ifdef WITH_QCOM_VOIP_OVER_MVS
