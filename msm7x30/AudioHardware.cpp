@@ -38,7 +38,9 @@
 extern "C" {
 #include "initialize_audcal7x30.h"
 #ifdef HTC_AUDIO
+/*
 #include <linux/spi_aic3254.h>
+*/
 #include <linux/tpa2051d3.h>
 #endif
 }
